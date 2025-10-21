@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+      
+  employee:
+    image: employee:0.0.1-SNAPSHOT
+    container_name: employee
+    ports:
+      - 8080:8080
+    networks:
+      - corpbot-network 
+  
+  vacation:
+    image: vacation:0.0.1-SNAPSHOT
+    container_name: vacation
+    ports:
+      - 8081:8081
+    networks:
+      - corpbot-network 
+      
+  tgbot:
+    image: bot:0.0.1-SNAPSHOT
+    container_name: tgbot
+    depends_on:
+      - employee
+      - vacation
+    ports:
+      - 8079:8079
+    networks:
+      - corpbot-network 
+
+networks:
+  corpbot-network:
+    driver: bridge
