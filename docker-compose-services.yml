@@ -3,27 +3,21 @@ version: '3.8'
 services:
       
   employee:
-    image: employee:0.0.1-SNAPSHOT
+    image: employee:latest
     container_name: employee
     ports:
       - 8080:8080
     networks:
       - corpbot-network 
-  
-  vacation:
-    image: vacation:0.0.1-SNAPSHOT
-    container_name: vacation
-    ports:
-      - 8081:8081
-    networks:
-      - corpbot-network 
       
-  tgbot:
-    image: bot:0.0.1-SNAPSHOT
-    container_name: tgbot
+  bot:
+    image: bot:latest
+    container_name: bot
+    environment:
+      - BOT_NAME=StasintTestBot
+      - BOT_TOKEN=token
     depends_on:
       - employee
-      - vacation
     ports:
       - 8079:8079
     networks:
